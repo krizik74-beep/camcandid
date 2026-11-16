@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+}
+
+.font-calligraphy {
+  font-family: 'Alex Brush', cursive;
+}
+
+.font-script {
+  font-family: 'Great Vibes', cursive;
+}
+
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+.font-mono-retro {
+  font-family: 'Space Mono', monospace;
+}
+
+/* Retro film grain effect overlay */
+.film-grain {
+  background-image: radial-gradient(rgba(0,0,0,0.08) 1px, transparent 0);
+  background-size: 4px 4px;
+}
+
+/* Flash burst animation */
+@keyframes flash-burst {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-flash {
+  animation: flash-burst 450ms ease-out forwards;
+}
+
+/* Polaroid drop shadow */
+.shadow-polaroid {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-polaroid-hover {
+  box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.18), 0 10px 15px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Winding roll animation */
+@keyframes roll-wind {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-wind {
+  animation: roll-wind 0.3s ease-in-out;
+}
