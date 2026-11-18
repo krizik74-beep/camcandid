@@ -59,9 +59,6 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
     filteredPhotos.sort((a, b) => b.likes - a.likes);
   }
 
-  // 15 sprocket holes for the 35mm film roll effect (matches taller 9/16 portrait frame)
-  const sprocketCount = 15;
-
   return (
     <div className="w-full max-w-md mx-auto min-h-screen px-4 pt-3 pb-16 flex flex-col items-center relative overflow-hidden select-none bg-[#F5EAD8]">
       {/* Pressed Daisy Sticker in Top-Right Corner with Washi Tape */}
@@ -96,9 +93,9 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
           </h1>
         </div>
 
-        {/* Centerpiece 35mm Film Roll Frame — includes wedding title overlay */}
+        {/* Centerpiece Photo — wedding title di bawahnya */}
         <div className="w-full max-w-[340px] mt-2 relative">
-          {/* Dark film border frame with padding */}
+          {/* Dark photo frame with padding */}
           <div className="w-full bg-[#1A1816] rounded-3xl p-2 shadow-2xl border border-black/50 relative">
 
             {/* Photo container — height capped so wedding title stays above the fold, name input pushed below */}
@@ -107,7 +104,7 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
 
               {/* Full-Frame Photo */}
               <img
-                src="/dimas_devi.jpg"
+                src="/dimas_devi_clean.jpg"
                 alt={currentEvent.hosts}
                 className="w-full h-full object-cover"
                 onError={(e) => {
@@ -117,35 +114,6 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
 
               {/* Subtle vintage warm vignette overlay */}
               <div className="absolute inset-0 bg-radial from-transparent via-black/10 to-black/35 pointer-events-none" />
-
-              {/* Left Sprocket Strip — garis putih vertikal dengan lubang film */}
-              <div className="absolute top-0 left-0 bottom-0 w-4 bg-white border-r border-black/10 flex flex-col items-center justify-between py-4 select-none z-10">
-                <span className="absolute top-1/2 -translate-y-1/2 left-0.5 z-20 text-[5px] font-mono font-bold text-[#B5842E] -rotate-90 whitespace-nowrap tracking-widest pointer-events-none">
-                  KODAK 400
-                </span>
-                {Array.from({ length: sprocketCount }).map((_, i) => (
-                  <div
-                    key={`left-sprocket-${i}`}
-                    className="w-2 h-3 rounded-[2px] bg-[#1A1816] shrink-0"
-                  />
-                ))}
-              </div>
-
-              {/* Right Sprocket Strip — garis putih vertikal dengan lubang film */}
-              <div className="absolute top-0 right-0 bottom-0 w-4 bg-white border-l border-black/10 flex flex-col items-center justify-between py-4 select-none z-10">
-                <span className="absolute top-1/3 right-0.5 z-20 text-[5px] font-mono font-bold text-[#B5842E] rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
-                  3A
-                </span>
-                <span className="absolute top-2/3 right-0.5 z-20 text-[5px] font-mono font-bold text-[#B5842E] rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
-                  04A
-                </span>
-                {Array.from({ length: sprocketCount }).map((_, i) => (
-                  <div
-                    key={`right-sprocket-${i}`}
-                    className="w-2 h-3 rounded-[2px] bg-[#1A1816] shrink-0"
-                  />
-                ))}
-              </div>
 
             </div>
           </div>

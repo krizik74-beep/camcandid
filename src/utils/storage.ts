@@ -19,7 +19,7 @@ export const DEFAULT_EVENT: CandidEvent = {
   allowGalleryUpload: true,
   defaultFrameStyle: 'polaroid',
   frameCaption: 'Dimas & Devi • 28.11.2026',
-  coverImage: '/dimas_devi.jpg',
+  coverImage: '/dimas_devi_clean.jpg',
 };
 
 // Seed gallery photos with high-quality candid celebration pictures
