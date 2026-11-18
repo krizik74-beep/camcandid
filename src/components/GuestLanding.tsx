@@ -59,8 +59,8 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
     filteredPhotos.sort((a, b) => b.likes - a.likes);
   }
 
-  // 11 sprocket holes for the 35mm film roll effect
-  const sprocketCount = 11;
+  // 15 sprocket holes for the 35mm film roll effect (matches taller 9/16 portrait frame)
+  const sprocketCount = 15;
 
   return (
     <div className="w-full max-w-md mx-auto min-h-screen px-4 pt-3 pb-16 flex flex-col items-center relative overflow-hidden select-none bg-[#F5EAD8]">
@@ -77,107 +77,98 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
         />
       </div>
 
-      {/* Top Powered-by Pill Badge */}
-      <div className="mt-1 mb-2 inline-flex items-center justify-center">
-        <div className="border border-[#D4C3AC] bg-[#F5EAD8]/80 backdrop-blur-xs rounded-full px-4 py-1 text-[11px] font-mono tracking-wider text-[#635543] shadow-2xs">
-          Powered by Invistory.com
+      {/* First Screen Hero — hanya menampilkan foto & judul sampai "The Wedding of" */}
+      <section className="w-full min-h-[100svh] flex flex-col items-center justify-center pb-2">
+        {/* Top Powered-by Pill Badge */}
+        <div className="mt-1 mb-2 inline-flex items-center justify-center">
+          <div className="border border-[#D4C3AC] bg-[#F5EAD8]/80 backdrop-blur-xs rounded-full px-4 py-1 text-[11px] font-mono tracking-wider text-[#635543] shadow-2xs">
+            Powered by Invistory.com
+          </div>
         </div>
-      </div>
 
-      {/* Main Title: Candid Cam with Hand-drawn Heart */}
-      <div className="text-center my-1">
-        <h1 className="font-calligraphy text-[44px] sm:text-[48px] text-[#28211A] flex items-center justify-center gap-1.5 leading-tight tracking-wide">
-          Candid Cam
-          <span className="text-[#DE7771] text-2xl filter drop-shadow-xs transform rotate-6 inline-block">
-            ♥
-          </span>
-        </h1>
-      </div>
+        {/* Main Title: Candid Cam with Hand-drawn Heart */}
+        <div className="text-center my-1">
+          <h1 className="font-calligraphy text-[44px] sm:text-[48px] text-[#28211A] flex items-center justify-center gap-1.5 leading-tight tracking-wide">
+            Candid Cam
+            <span className="text-[#DE7771] text-2xl filter drop-shadow-xs transform rotate-6 inline-block">
+              ♥
+            </span>
+          </h1>
+        </div>
 
-      {/* Centerpiece 35mm Film Roll Frame */}
-      <div className="w-full max-w-[390px] mt-2 relative">
-        <div className="w-full bg-[#1A1816] rounded-3xl p-2.5 sm:p-3 shadow-2xl border border-black/40 flex items-stretch gap-2 relative overflow-hidden">
-          {/* Left Film Sprocket Strip */}
-          <div className="w-7 sm:w-8 bg-white rounded-lg flex flex-col justify-between items-center py-2 shrink-0 select-none relative">
-            {/* Edge Kodak Markings */}
-            <span className="absolute top-14 left-1 text-[9px] font-mono font-bold text-[#E5A83E] -rotate-90 origin-left tracking-wider">
-              4
-            </span>
-            <span className="absolute top-1/2 -translate-y-1/2 left-0.5 text-[8px] font-mono font-bold text-[#E5A83E] -rotate-90 origin-left tracking-widest whitespace-nowrap">
-              KODAK 400
-            </span>
-            <span className="absolute bottom-16 left-1 text-[9px] font-mono font-bold text-[#E5A83E] -rotate-90 origin-left tracking-wider">
-              3
-            </span>
+        {/* Centerpiece 35mm Film Roll Frame — includes wedding title overlay */}
+        <div className="w-full max-w-[340px] mt-2 relative">
+          {/* Dark film border frame with padding */}
+          <div className="w-full bg-[#1A1816] rounded-3xl p-2 shadow-2xl border border-black/50 relative">
 
-            {/* Sprocket Holes */}
-            {Array.from({ length: sprocketCount }).map((_, i) => (
-              <div
-                key={`left-sprocket-${i}`}
-                className="w-3.5 sm:w-4 h-5 sm:h-5.5 rounded-md bg-[#E9E1D4] shadow-inner shrink-0 my-0.5"
+            {/* Photo container — height capped so wedding title stays above the fold, name input pushed below */}
+            <div className="relative rounded-2xl overflow-hidden w-full bg-[#221F1D]"
+                 style={{ aspectRatio: '9/16', maxHeight: '58svh' }}>
+
+              {/* Full-Frame Photo */}
+              <img
+                src="/dimas_devi.jpg"
+                alt={currentEvent.hosts}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = currentEvent.coverImage || '/hero_couple.png';
+                }}
               />
-            ))}
+
+              {/* Subtle vintage warm vignette overlay */}
+              <div className="absolute inset-0 bg-radial from-transparent via-black/10 to-black/35 pointer-events-none" />
+
+              {/* Left Sprocket Strip */}
+              <div className="absolute top-0 left-0 bottom-0 w-5 flex flex-col items-center justify-center gap-1 py-3 select-none z-10">
+                <span className="absolute top-1/2 -translate-y-1/2 left-0.5 text-[5px] font-mono font-bold text-[#E5A83E]/60 -rotate-90 whitespace-nowrap tracking-widest pointer-events-none">
+                  KODAK 400
+                </span>
+                {Array.from({ length: sprocketCount }).map((_, i) => (
+                  <div
+                    key={`left-sprocket-${i}`}
+                    className="w-2 h-3 rounded-sm bg-transparent border border-white/70 shrink-0"
+                  />
+                ))}
+              </div>
+
+              {/* Right Sprocket Strip */}
+              <div className="absolute top-0 right-0 bottom-0 w-5 flex flex-col items-center justify-center gap-1 py-3 select-none z-10">
+                <span className="absolute top-1/3 right-0.5 text-[5px] font-mono font-bold text-[#E5A83E]/60 rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
+                  3A
+                </span>
+                <span className="absolute top-2/3 right-0.5 text-[5px] font-mono font-bold text-[#E5A83E]/60 rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
+                  04A
+                </span>
+                {Array.from({ length: sprocketCount }).map((_, i) => (
+                  <div
+                    key={`right-sprocket-${i}`}
+                    className="w-2 h-3 rounded-sm bg-transparent border border-white/70 shrink-0"
+                  />
+                ))}
+              </div>
+
+            </div>
           </div>
 
-          {/* Center Couple Photo Viewport */}
-          <div className="flex-1 rounded-xl overflow-hidden relative aspect-[3/4] bg-[#221F1D] flex items-center justify-center">
-            <img
-              src="/dimas_devi.jpg"
-              alt={currentEvent.hosts}
-              className="w-full h-full object-cover"
-              onError={(e) => {
-                // Fallback to coverImage or local hero if crop was different
-                (e.target as HTMLImageElement).src = currentEvent.coverImage || '/hero_couple.png';
-              }}
-            />
-            {/* Subtle vintage warm vignette overlay */}
-            <div className="absolute inset-0 bg-radial from-transparent via-black/10 to-black/35 pointer-events-none" />
-          </div>
-
-          {/* Right Film Sprocket Strip */}
-          <div className="w-7 sm:w-8 bg-white rounded-lg flex flex-col justify-between items-center py-2 shrink-0 select-none relative">
-            {/* Edge Frame Numbering */}
-            <span className="absolute top-14 right-1 text-[9px] font-mono font-bold text-[#E5A83E] rotate-90 origin-right tracking-wider">
-              4
-            </span>
-            <span className="absolute top-1/3 right-1 text-[8px] font-mono font-bold text-[#E5A83E] rotate-90 origin-right tracking-wider">
-              3A
-            </span>
-            <span className="absolute top-2/3 right-1 text-[8px] font-mono font-bold text-[#E5A83E] rotate-90 origin-right tracking-wider">
-              04A
-            </span>
-            <span className="absolute bottom-12 right-1 text-[8px] font-mono font-bold text-[#E5A83E] rotate-90 origin-right tracking-wider">
-              2A
-            </span>
-
-            {/* Sprocket Holes */}
-            {Array.from({ length: sprocketCount }).map((_, i) => (
-              <div
-                key={`right-sprocket-${i}`}
-                className="w-3.5 sm:w-4 h-5 sm:h-5.5 rounded-md bg-[#E9E1D4] shadow-inner shrink-0 my-0.5"
-              />
-            ))}
+          {/* Decorative Sparkle */}
+          <div className="absolute -bottom-4 -right-3 text-[#A89885] text-xl select-none pointer-events-none font-serif">
+            ✳
           </div>
         </div>
 
-        {/* Decorative Sparkle / Asterism Doodle on the side */}
-        <div className="absolute -bottom-4 -right-3 text-[#A89885] text-xl select-none pointer-events-none font-serif">
-          ✳
+        {/* Couple Calligraphy Heading — batas akhir tampilan pertama */}
+        <div className="text-center mt-4 space-y-0 relative z-10">
+          <p className="font-calligraphy text-2xl text-[#2B231C] tracking-wide leading-snug">
+            The Wedding of
+          </p>
+          <h2 className="font-calligraphy text-[36px] text-[#2B231C] font-normal leading-tight tracking-wide">
+            Dimas & Devi
+          </h2>
+          <p className="text-xs text-[#8C7A65] font-medium tracking-wide pt-0.5">
+            4/5 peserta bergabung
+          </p>
         </div>
-      </div>
-
-      {/* Couple Calligraphy Heading */}
-      <div className="text-center mt-5 space-y-0.5 relative z-10">
-        <p className="font-calligraphy text-3xl sm:text-4xl text-[#2B231C] tracking-wide">
-          The Wedding of
-        </p>
-        <h2 className="font-calligraphy text-4xl sm:text-[46px] text-[#2B231C] font-normal leading-tight tracking-wide">
-          Dimas & Devi
-        </h2>
-        <p className="text-xs text-[#8C7A65] font-medium tracking-wide pt-1">
-          4/5 peserta bergabung
-        </p>
-      </div>
+      </section>
 
       {/* Guest Greeting & Remaining Quota Box */}
       <div className="w-full mt-6 bg-white/70 backdrop-blur-sm border border-[#E3D6C5] rounded-2xl p-4 shadow-xs">
@@ -194,7 +185,6 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
                   value={tempName}
                   onChange={(e) => setTempName(e.target.value)}
                   className="px-2.5 py-1 text-xs rounded-lg border border-[#D5C6B3] bg-white outline-none w-36 focus:ring-1 focus:ring-[#8F3E22]"
-                  autoFocus
                 />
                 <button
                   type="submit"
@@ -335,7 +325,7 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
                   transform: `rotate(${((idx % 4) - 1.5) * 1.5}deg)`,
                 }}
               >
-                <div className="w-full aspect-[4/5] rounded-lg overflow-hidden bg-black/5">
+                <div className="w-full aspect-[3/4] rounded-lg overflow-hidden bg-black/5">
                   <img
                     src={photo.photoUrl}
                     alt={photo.caption || 'Candid'}
