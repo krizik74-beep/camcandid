@@ -94,14 +94,25 @@ export function getStoredEvents(): CandidEvent[] {
       localStorage.setItem(STORAGE_KEY_EVENTS, JSON.stringify([DEFAULT_EVENT]));
       return [DEFAULT_EVENT];
     }
-    const events: CandidEvent[] = JSON.parse(raw);
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) {
+      throw new Error('Invalid events data');
+    }
+    const events = parsed.filter(
+      (event): event is CandidEvent => Boolean(event) && typeof event === 'object' && typeof (event as CandidEvent).id === 'string'
+    );
     if (!events.find((e) => e.id === DEFAULT_EVENT.id)) {
       events.unshift(DEFAULT_EVENT);
       localStorage.setItem(STORAGE_KEY_EVENTS, JSON.stringify(events));
     }
-    return events;
+    return events.length > 0 ? events : [DEFAULT_EVENT];
   } catch (err) {
     console.error('Failed to get events from storage', err);
+    try {
+      localStorage.setItem(STORAGE_KEY_EVENTS, JSON.stringify([DEFAULT_EVENT]));
+    } catch {
+      // storage unavailable — fall back to in-memory data
+    }
     return [DEFAULT_EVENT];
   }
 }
@@ -132,7 +143,14 @@ export function getStoredPhotos(eventId?: string): CandidPhoto[] {
       photos = INITIAL_PHOTOS;
       localStorage.setItem(STORAGE_KEY_PHOTOS, JSON.stringify(photos));
     } else {
-      photos = JSON.parse(raw);
+      const parsed: unknown = JSON.parse(raw);
+      if (!Array.isArray(parsed)) {
+        throw new Error('Invalid photos data');
+      }
+      photos = parsed.filter(
+        (photo): photo is CandidPhoto =>
+          Boolean(photo) && typeof photo === 'object' && typeof (photo as CandidPhoto).id === 'string'
+      );
     }
     if (eventId) {
       return photos.filter((p) => p.eventId === eventId);
@@ -140,6 +158,11 @@ export function getStoredPhotos(eventId?: string): CandidPhoto[] {
     return photos;
   } catch (err) {
     console.error('Failed to get photos', err);
+    try {
+      localStorage.setItem(STORAGE_KEY_PHOTOS, JSON.stringify(INITIAL_PHOTOS));
+    } catch {
+      // storage unavailable — fall back to in-memory data
+    }
     return INITIAL_PHOTOS;
   }
 }
@@ -176,27 +199,48 @@ export function deletePhoto(photoId: string) {
 
 // Guest Session (Quota & Name)
 export function getGuestSession(eventId: string, defaultQuota = 10): GuestSession {
-  const key = `${STORAGE_KEY_GUEST_PREFIX}${eventId}`;
-  const raw = localStorage.getItem(key);
-  if (raw) {
-    try {
-      return JSON.parse(raw);
-    } catch {
-      // fall through
-    }
-  }
-  const newSession: GuestSession = {
+  const fallback: GuestSession = {
     guestName: '',
     photosRemaining: defaultQuota,
     takenPhotoIds: [],
   };
-  localStorage.setItem(key, JSON.stringify(newSession));
-  return newSession;
+  const key = `${STORAGE_KEY_GUEST_PREFIX}${eventId}`;
+
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw) {
+      const parsed: unknown = JSON.parse(raw);
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+        const data = parsed as Partial<GuestSession>;
+        const session: GuestSession = {
+          guestName: typeof data.guestName === 'string' ? data.guestName : '',
+          photosRemaining:
+            typeof data.photosRemaining === 'number' && Number.isFinite(data.photosRemaining)
+              ? Math.max(0, data.photosRemaining)
+              : defaultQuota,
+          takenPhotoIds: Array.isArray(data.takenPhotoIds)
+            ? data.takenPhotoIds.filter((id): id is string => typeof id === 'string')
+            : [],
+        };
+        return session;
+      }
+      console.warn('Invalid guest session data, resetting to default');
+    }
+    localStorage.setItem(key, JSON.stringify(fallback));
+  } catch (err) {
+    console.error('Failed to get guest session', err);
+  }
+
+  return fallback;
 }
 
 export function saveGuestSession(eventId: string, session: GuestSession) {
-  const key = `${STORAGE_KEY_GUEST_PREFIX}${eventId}`;
-  localStorage.setItem(key, JSON.stringify(session));
+  try {
+    const key = `${STORAGE_KEY_GUEST_PREFIX}${eventId}`;
+    localStorage.setItem(key, JSON.stringify(session));
+  } catch (err) {
+    console.error('Failed to save guest session', err);
+  }
 }
 
 // QR Code Generator
