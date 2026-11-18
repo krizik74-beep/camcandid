@@ -118,31 +118,31 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
               {/* Subtle vintage warm vignette overlay */}
               <div className="absolute inset-0 bg-radial from-transparent via-black/10 to-black/35 pointer-events-none" />
 
-              {/* Left Sprocket Strip */}
-              <div className="absolute top-0 left-0 bottom-0 w-5 flex flex-col items-center justify-center gap-1 py-3 select-none z-10">
-                <span className="absolute top-1/2 -translate-y-1/2 left-0.5 text-[5px] font-mono font-bold text-[#E5A83E]/60 -rotate-90 whitespace-nowrap tracking-widest pointer-events-none">
+              {/* Left Sprocket Strip — garis putih vertikal dengan lubang film */}
+              <div className="absolute top-0 left-0 bottom-0 w-4 bg-white border-r border-black/10 flex flex-col items-center justify-between py-4 select-none z-10">
+                <span className="absolute top-1/2 -translate-y-1/2 left-0.5 z-20 text-[5px] font-mono font-bold text-[#B5842E] -rotate-90 whitespace-nowrap tracking-widest pointer-events-none">
                   KODAK 400
                 </span>
                 {Array.from({ length: sprocketCount }).map((_, i) => (
                   <div
                     key={`left-sprocket-${i}`}
-                    className="w-2 h-3 rounded-sm bg-transparent border border-white/70 shrink-0"
+                    className="w-2 h-3 rounded-[2px] bg-[#1A1816] shrink-0"
                   />
                 ))}
               </div>
 
-              {/* Right Sprocket Strip */}
-              <div className="absolute top-0 right-0 bottom-0 w-5 flex flex-col items-center justify-center gap-1 py-3 select-none z-10">
-                <span className="absolute top-1/3 right-0.5 text-[5px] font-mono font-bold text-[#E5A83E]/60 rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
+              {/* Right Sprocket Strip — garis putih vertikal dengan lubang film */}
+              <div className="absolute top-0 right-0 bottom-0 w-4 bg-white border-l border-black/10 flex flex-col items-center justify-between py-4 select-none z-10">
+                <span className="absolute top-1/3 right-0.5 z-20 text-[5px] font-mono font-bold text-[#B5842E] rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
                   3A
                 </span>
-                <span className="absolute top-2/3 right-0.5 text-[5px] font-mono font-bold text-[#E5A83E]/60 rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
+                <span className="absolute top-2/3 right-0.5 z-20 text-[5px] font-mono font-bold text-[#B5842E] rotate-90 whitespace-nowrap tracking-wider pointer-events-none">
                   04A
                 </span>
                 {Array.from({ length: sprocketCount }).map((_, i) => (
                   <div
                     key={`right-sprocket-${i}`}
-                    className="w-2 h-3 rounded-sm bg-transparent border border-white/70 shrink-0"
+                    className="w-2 h-3 rounded-[2px] bg-[#1A1816] shrink-0"
                   />
                 ))}
               </div>
