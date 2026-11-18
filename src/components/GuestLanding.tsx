@@ -158,11 +158,8 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
 
         {/* Couple Calligraphy Heading — batas akhir tampilan pertama */}
         <div className="text-center mt-4 space-y-0 relative z-10">
-          <p className="font-calligraphy text-2xl text-[#2B231C] tracking-wide leading-snug">
-            The Wedding of
-          </p>
-          <h2 className="font-calligraphy text-[36px] text-[#2B231C] font-normal leading-tight tracking-wide">
-            Dimas & Devi
+          <h2 className="font-calligraphy text-[32px] sm:text-[36px] text-[#2B231C] font-normal leading-tight tracking-wide text-balance">
+            The Wedding of Dimas & Devi
           </h2>
           <p className="text-xs text-[#8C7A65] font-medium tracking-wide pt-0.5">
             4/5 peserta bergabung
