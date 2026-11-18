@@ -258,7 +258,7 @@ export function App() {
 
       {/* Discreet Bottom Controls (Only in Guest View, subtle and unobtrusive) */}
       {currentTab === 'guest' && (
-        <div className="py-6 text-center text-xs text-[#8C7A65]">
+        <div className="w-full max-w-md mx-auto py-6 text-center text-xs text-[#8C7A65] bg-[#F5EAD8]">
           <div className="flex items-center justify-center gap-4 text-[11px] mb-2">
             <button
               onClick={() => setCurrentTab('display')}

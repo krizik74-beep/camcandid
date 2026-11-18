@@ -63,7 +63,7 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
   const sprocketCount = 11;
 
   return (
-    <div className="w-full max-w-md mx-auto min-h-screen px-4 pt-3 pb-16 flex flex-col items-center relative overflow-hidden select-none">
+    <div className="w-full max-w-md mx-auto min-h-screen px-4 pt-3 pb-16 flex flex-col items-center relative overflow-hidden select-none bg-[#F5EAD8]">
       {/* Pressed Daisy Sticker in Top-Right Corner with Washi Tape */}
       <div className="absolute top-1 right-2 w-16 h-16 pointer-events-none z-20 transform rotate-6">
         <img
