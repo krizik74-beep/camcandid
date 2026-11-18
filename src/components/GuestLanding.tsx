@@ -98,7 +98,7 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
       <div className="w-full max-w-[390px] mt-2 relative">
         <div className="w-full bg-[#1A1816] rounded-3xl p-2.5 sm:p-3 shadow-2xl border border-black/40 flex items-stretch gap-2 relative overflow-hidden">
           {/* Left Film Sprocket Strip */}
-          <div className="w-7 sm:w-8 flex flex-col justify-between items-center py-2 shrink-0 select-none relative">
+          <div className="w-7 sm:w-8 bg-white rounded-lg flex flex-col justify-between items-center py-2 shrink-0 select-none relative">
             {/* Edge Kodak Markings */}
             <span className="absolute top-14 left-1 text-[9px] font-mono font-bold text-[#E5A83E] -rotate-90 origin-left tracking-wider">
               4
@@ -114,7 +114,7 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
             {Array.from({ length: sprocketCount }).map((_, i) => (
               <div
                 key={`left-sprocket-${i}`}
-                className="w-3.5 sm:w-4 h-5 sm:h-5.5 rounded-md bg-[#F5EAD8] shadow-inner shrink-0 my-0.5"
+                className="w-3.5 sm:w-4 h-5 sm:h-5.5 rounded-md bg-[#E9E1D4] shadow-inner shrink-0 my-0.5"
               />
             ))}
           </div>
@@ -135,7 +135,7 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
           </div>
 
           {/* Right Film Sprocket Strip */}
-          <div className="w-7 sm:w-8 flex flex-col justify-between items-center py-2 shrink-0 select-none relative">
+          <div className="w-7 sm:w-8 bg-white rounded-lg flex flex-col justify-between items-center py-2 shrink-0 select-none relative">
             {/* Edge Frame Numbering */}
             <span className="absolute top-14 right-1 text-[9px] font-mono font-bold text-[#E5A83E] rotate-90 origin-right tracking-wider">
               4
@@ -154,7 +154,7 @@ export const GuestLanding: React.FC<GuestLandingProps> = ({
             {Array.from({ length: sprocketCount }).map((_, i) => (
               <div
                 key={`right-sprocket-${i}`}
-                className="w-3.5 sm:w-4 h-5 sm:h-5.5 rounded-md bg-[#F5EAD8] shadow-inner shrink-0 my-0.5"
+                className="w-3.5 sm:w-4 h-5 sm:h-5.5 rounded-md bg-[#E9E1D4] shadow-inner shrink-0 my-0.5"
               />
             ))}
           </div>

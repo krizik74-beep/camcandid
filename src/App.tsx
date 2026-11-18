@@ -187,7 +187,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5EAD8] text-[#28211A] flex flex-col justify-between selection:bg-[#E2D1BD]">
+    <div className="min-h-screen bg-white text-[#28211A] flex flex-col justify-between selection:bg-[#E2D1BD]">
       {/* If in admin mode, show a clean header with a back button */}
       {currentTab === 'admin' && (
         <header className="sticky top-0 z-40 bg-[#FAF7F2]/95 backdrop-blur-md border-b border-[#E8DFD3] px-4 py-3 flex items-center justify-between">
